@@ -33,43 +33,31 @@
 		for(var i=0;i<data.length;i++){
 			showSite(i);
 		}
-		/* get location */
-		  var infoWindow = new google.maps.InfoWindow({map: map});
+		
+		var infoWindow = new google.maps.InfoWindow({map: map});
 
-		if (navigator.geolocation) {
-    	navigator.geolocation.getCurrentPosition(function(position) {
-     		var pos = {
+ 
+ 		if (navigator.geolocation) {
+    		navigator.geolocation.getCurrentPosition(function(position) {
+      		var pos = {
         	lat: position.coords.latitude,
         	lng: position.coords.longitude
-      		};
-      		infoWindow.setPosition(pos);
-      		infoWindow.setContent('Location found.');
-      		map.setCenter(pos);
+      	};
+
+      	infoWindow.setPosition(pos);
+      	infoWindow.setContent('Location found.');
+      	map.setCenter(pos);
     	}, function() {
       	handleLocationError(true, infoWindow, map.getCenter());
-      	data.push(position.coords.latitude+" "+position.coords.longitude);
     	});
   		} else {
     	handleLocationError(false, infoWindow, map.getCenter());
- 		 }
-		}
-		function showSite(index){
-			geocoder.geocode({address:data[index].addr}, function(results){
-			var marker=new google.maps.Marker({
-			position:results[0].geometry.location,
-			map:map
-		});
-			var info=new google.maps.InfoWindow({
-			content:data[index].name	
-		});
-		google.maps.event.addDomListener(marker, "click" , function(){
-		info.open(map, marker);		
-		});
-		map.setCenter(results[0].geometry.location);	
-		});
-		}
+  		}
+		}	
 		/* get location */
 	</script>
+
+
     <script src="https://maps.googleapis.com/maps/api/js?callback=initMap"async defer></script>
 
 
